@@ -1,0 +1,17 @@
+.actionsBtns{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-around;
+    font-size: 20px;
+}
+
+.editBtn{
+    color:orange;
+    
+}
+
+.deleteBtn{
+    color:red;
+}
