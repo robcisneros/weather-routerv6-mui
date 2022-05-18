@@ -8,6 +8,8 @@ const NewTable = () => {
   const [estados, setEstados] = useState([]);
 
   useEffect(() => {
+    const url =
+      "https://react-http-5cc8c-default-rtdb.firebaseio.com/estados.json/";
     const transformData = (dataObj) => {
       const loadedData = [];
       for (const key in dataObj) {
@@ -17,27 +19,35 @@ const NewTable = () => {
           value: dataObj[key].value,
         });
       }
-      
+
       setEstados(loadedData);
     };
 
     fetchAPI(
       {
-        url: "https://react-http-5cc8c-default-rtdb.firebaseio.com/estados.json/",
+        url: url,
       },
       transformData
     );
   }, [fetchAPI]);
 
-  const onChangeHandler = (e) => {
-    console.log(e.target.value);
-  }
+  const onConfirmHandler = (enteredData) => {
+    const url =
+      "https://react-http-5cc8c-default-rtdb.firebaseio.com/weatherBmore.json/";
+    console.log(enteredData);
+    fetchAPI({
+      url: url,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: enteredData,
+    }, () => {} );
+  };
 
   return (
     <div className={classes.container}>
       <h1>Add new weather data</h1>
-      
-      <BasicForm onChange={onChangeHandler} estadosAPI={estados}/>
+
+      <BasicForm onConfirm={onConfirmHandler} estadosAPI={estados} />
     </div>
   );
 };

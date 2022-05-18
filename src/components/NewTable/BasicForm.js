@@ -1,12 +1,11 @@
 import useInput from "../../hooks/use-input";
 import classes from "./BasicForm.module.css";
 import Dropdown from "../UI/Dropdown";
-
-// import { focusActions } from "../store/focus-slice"
-// import { useDispatch } from "react-redux";
+import { useState } from "react";
 
 const BasicForm = (props) => {
-  // const dispatch = useDispatch();
+
+  const [enteredEstado, setEnteredEstado] = useState('');
 
   const {
     value: enteredMunicipio,
@@ -40,9 +39,14 @@ const BasicForm = (props) => {
   if (
     enteredMunicipioIsValid &&
     enteredDescriptionIsValid &&
-    enteredTemperaturaIsValid 
+    enteredTemperaturaIsValid &&
+    enteredEstado
   ) {
     formIsValid = true;
+  }
+
+  const onSelectedHandler = (estado) => {
+    setEnteredEstado(estado)
   }
 
   const formSubmissionHandler = (event) => {
@@ -51,9 +55,13 @@ const BasicForm = (props) => {
     if (!formIsValid) {
       return;
     }
-    console.log("siuuu");
-    console.log("municipio: ", enteredMunicipio);
-    console.log("Temp: ",enteredTemperatura)
+    
+    props.onConfirm({
+      estado: enteredEstado,
+      municipio: enteredMunicipio,
+      temperatura: enteredTemperatura,
+      descripcion: enteredDescription
+    });
     resetMunicipioInput();
     resetDescriptionInput();
     resetTemperaturaInput();
@@ -74,7 +82,9 @@ const BasicForm = (props) => {
 
   return (
     <form onSubmit={formSubmissionHandler} className={classes["form-control"]}>
-      <Dropdown estadosDB={props.estadosAPI} />
+
+      <Dropdown onSelectedEstado={onSelectedHandler} estadosDB={props.estadosAPI} />
+
       <div className={classes["control-group"]}>
         <div className={municipioInputClasses}>
           <label htmlFor="municipio">Municipio</label>
