@@ -13,101 +13,50 @@ import {
   TableBody,
 } from "@mui/material";
 
-const MuiTable = () => {
-  // const tableData = [
-  //   {
-  //     id: 1,
-  //     municipio: "Madero",
-  //     description: "descrip",
-  //     temperatura: 35,
-  //     acciones: "acciones",
-  //   },
-  //   {
-  //     id: 2,
-  //     municipio: "Jaumave",
-  //     description: "descrip",
-  //     temperatura: 35,
-  //     acciones: "acciones",
-  //   },
-  //   {
-  //     id: 3,
-  //     municipio: "Tampico",
-  //     description: "descrip",
-  //     temperatura: 35,
-  //     acciones: "acciones",
-  //   },
-  //   {
-  //     id: 4,
-  //     municipio: "Reynosa",
-  //     description: "descrip",
-  //     temperatura: 35,
-  //     acciones: "acciones",
-  //   },
-  //   {
-  //     id: 5,
-  //     municipio: "Burgos",
-  //     description: "descrip",
-  //     temperatura: 35,
-  //     acciones: "acciones",
-  //   },
-  //   {
-  //     id: 6,
-  //     municipio: "Gonzalez",
-  //     description: "descrip",
-  //     temperatura: 35,
-  //     acciones: "acciones",
-  //   },
-  //   {
-  //     id: 7,
-  //     municipio: "Matamoros",
-  //     description: "descrip",
-  //     temperatura: 35,
-  //     acciones: "acciones",
-  //   },
-  // ];
+const MuiTable = (props) => {
 
-  const { sendRequest: fetchAPI } = useHttp();
-  const [dataWeather, setDataWeather] = useState([]);
+  // const { sendRequest: fetchAPI } = useHttp();
+  // const [dataWeather, setDataWeather] = useState([]);
 
-  useEffect(() => {
-    const url =
-      "https://react-http-5cc8c-default-rtdb.firebaseio.com/weatherBmore.json/";
-    const transformData = (dataObj) => {
-      const loadedData = [];
+  // useEffect(() => {
+  //   const url =
+  //     "https://react-http-5cc8c-default-rtdb.firebaseio.com/weatherBmore.json/";
+  //   const transformData = (dataObj) => {
+  //     const loadedData = [];
 
       
-      for (const key in dataObj) {
+  //     for (const key in dataObj) {
         
-        loadedData.push({
-          id: key,
-          estado: dataObj[key].estado,
-          municipio: dataObj[key].municipio,
-          description: dataObj[key].descripcion,
-          temperatura: dataObj[key].temperatura,
-        });
+  //       loadedData.push({
+  //         id: key,
+  //         estado: dataObj[key].estado,
+  //         municipio: dataObj[key].municipio,
+  //         description: dataObj[key].descripcion,
+  //         temperatura: dataObj[key].temperatura,
+  //       });
 
         
         
-      }
+  //     }
 
-      setDataWeather(loadedData);
+  //     setDataWeather(loadedData);
       
-    };
+  //   };
 
-    fetchAPI(
-      {
-        url: url,
-      },
-      transformData
-    );
-  }, [fetchAPI]);
+  //   fetchAPI(
+  //     {
+  //       url: url,
+  //     },
+  //     transformData
+  //   );
+  // }, [fetchAPI]);
 
   return (
     <TableContainer component={Paper} sx={{ maxHeight: "500px" }}>
       <Table aria-label="simple table" stickyHeader>
         <TableHead>
           <TableRow>
-            <TableCell>Id</TableCell>
+            <TableCell>Estado</TableCell>
             <TableCell>Municipio</TableCell>
             <TableCell>Descripción</TableCell>
             <TableCell>Temperatura</TableCell>
@@ -115,12 +64,12 @@ const MuiTable = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {dataWeather.map((row) => (
+          {props.dataWeatherEsp.map((row) => (
             <TableRow
               key={row.id}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
-              <TableCell> {row.id} </TableCell>
+              <TableCell> {row.estado} </TableCell>
               <TableCell> {row.municipio} </TableCell>
               <TableCell> {row.description} </TableCell>
               <TableCell> {row.temperatura} </TableCell>

@@ -5,8 +5,10 @@ let logoutTimer;
 const AuthContext = React.createContext({
   token: "",
   isLoggedIn: false,
+  estados: [],
   login: (token) => {},
   logout: () => {},
+  getAllEstados: (estadosAPI) => {},
 });
 
 const calculateRemainingTime = (expirationTime) => {
@@ -33,9 +35,33 @@ const retrieveStoredToken = () => {
   };
 };
 
+// const retrieveInitialStates = () => {
+//   const url =
+//     "https://react-http-5cc8c-default-rtdb.firebaseio.com/estados.json/";
+//   const transformData = (dataObj) => {
+//     const loadedData = [];
+//     for (const key in dataObj) {
+//       loadedData.push({
+//         id: key,
+//         estado: dataObj[key].name,
+//         value: dataObj[key].value,
+//       });
+//     }
+
+//     // EstadosCtx.getAllEstados(loadedData);
+//     console.log("presssss");
+//     return {retrieveStates:loadedData};
+    
+//   };
+//   fetch(url)
+//     .then((response) => response.json())
+//     .then((data) => transformData(data));
+// };
+
 export const AuthContextProvider = (props) => {
   const tokenData = retrieveStoredToken();
   let initialToken;
+  
   if (tokenData) {
     initialToken = tokenData.token;
   }
@@ -64,17 +90,25 @@ export const AuthContextProvider = (props) => {
   };
 
   useEffect(() => {
-    if(tokenData){
+    if (tokenData) {
       console.log(tokenData.duration);
       logoutTimer = setTimeout(logoutHandler, tokenData.duration);
     }
   }, [tokenData, logoutHandler]);
+
+  let initialEstados;
+  const [estados, setEstados] = useState(initialEstados);
+  const getAllEstadosHandler = (estadosAPI) => {
+    setEstados(estadosAPI);
+  };
 
   const contextValue = {
     token: token,
     isLoggedIn: userIsLoggedIn,
     login: loginHandler,
     logout: logoutHandler,
+    estados: estados,
+    getAllEstados: getAllEstadosHandler,
   };
 
   return (

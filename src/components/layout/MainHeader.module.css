@@ -24,6 +24,10 @@
     width: 5rem;
 }
 
+.logoutBtn {
+    background-color: black;
+    border-color: black;
+}
 .header a {
     color: white;
     text-decoration: none;
@@ -33,6 +37,14 @@
 .header a:hover,
 .header a:active,
 .header a.active {
+    color: black;
+    background-color: aqua;
+    font-weight: bold;
+    border-radius: 10px;
+}
+.logoutBtn:hover,
+.logoutBtn:active,
+.logoutBtn.active {
     color: black;
     background-color: aqua;
     font-weight: bold;

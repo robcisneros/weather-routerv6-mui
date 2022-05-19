@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import AuthContext from "../../store/auth-context";
 import classes from "./AuthForm.module.css";
 
-const AuthForm = () => {
+const AuthForm = (props) => {
   const navigate = useNavigate();
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
@@ -45,6 +45,7 @@ const AuthForm = () => {
       const data = await response.json();
       setIsLoading(false);
       if (response.ok) {
+        props.getInitialStates()
         return data;
       } else {
         let errorMessage = "Authentication failed!";

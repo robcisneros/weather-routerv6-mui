@@ -49,7 +49,7 @@ const MainHeader = () => {
           )}
           {isLoggedIn && (
             <li>
-            <button onClick={logoutHandler}>Logout</button>
+            <button className={classes.logoutBtn} onClick={logoutHandler}>LOGOUT</button>
           </li>
           )}
         </ul>
