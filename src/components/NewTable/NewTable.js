@@ -2,10 +2,12 @@ import BasicForm from "../NewTable/BasicForm";
 import classes from "./NewTable.module.css";
 import useHttp from "../../hooks/use-http";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const NewTable = () => {
   const { sendRequest: fetchAPI } = useHttp();
   const [estados, setEstados] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const url =
@@ -41,6 +43,7 @@ const NewTable = () => {
       headers: { "Content-Type": "application/json" },
       body: enteredData,
     }, () => {} );
+    navigate("/");
   };
 
   return (
